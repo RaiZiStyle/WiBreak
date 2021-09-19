@@ -36,7 +36,7 @@ src: # SRC : "source/game_interface.c source/List.c source/game.c source/main.c"
 # – $< : nom de la première dépendance ;
 # – $^ : liste des dépendances ;
 # – $? : liste des dépendances plus récentes que la cible ;
-# – $* : nom d’un fichier sans son suffixe.
+# – $* : nom d'un fichier sans son suffixe.
 
 
 #REDDIT
