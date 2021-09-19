@@ -2,7 +2,7 @@
 #include "../header/function.h"
 
 void print_usage(){
-    printf("Usage : ./Wibreak -u url -t filename\n");
+    printf("Usage : ./Wibreak -u url -f filename\n");
 }
 
 
