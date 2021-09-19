@@ -9,6 +9,6 @@
 // Local include
 #include "cJSON.h"
 
-int init_jsonData();
+char *init_jsonData(char *password);
 
 #endif
