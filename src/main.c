@@ -14,8 +14,8 @@ int main(int argc, char const *argv[]) {
     char *url = NULL;
     char *filename = NULL;
     int option = 0;
-
-    while ((option = getopt(argc, argv, "u:f:")) != -1) {
+    
+    while ((option = getopt(argc, argv, "hu:f:")) != -1) {
         switch (option) {
             case 'u':
                 url = malloc(sizeof(int) * strlen(optarg));
@@ -28,16 +28,19 @@ int main(int argc, char const *argv[]) {
                 printf("filename : %s\n", filename);
                 // perimeter = 0;
                 break;
-            case 'l':
-                // length = atoi(optarg);
-                break;
-            case 'b':
+            case 'h':
                 // breadth = atoi(optarg);
+                print_usage();
                 break;
             default:
                 print_usage();
                 exit(EXIT_FAILURE);
         }
+    }
+    
+    if (!url  || !filename){
+        print_usage();  
+        exit(EXIT_FAILURE);
     }
 
     return 0;
