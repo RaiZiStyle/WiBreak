@@ -2,13 +2,17 @@
 #define __FUNCTION__H
 
 // Lib include
+#include <curl/curl.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <curl/curl.h>
+#include <string.h>
+
 
 // Local include
 #include "cJSON.h"
+
+
 
 char *init_payload(char *password);
 int make_query(char *json_payload);

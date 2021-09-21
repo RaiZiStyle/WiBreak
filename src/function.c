@@ -1,10 +1,7 @@
 // Local include
 #include "../header/function.h"
 
-void print_usage(){
-    printf("Usage : ./Wibreak -u url -f filename\n");
-}
-
+void print_usage() { printf("Usage : ./Wibreak -u url -f filename\n"); }
 
 /**
  * Create the Json payload for query
@@ -80,7 +77,9 @@ int make_query(char *json_payload) {
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_payload);
+    struct memory chunk = {0};
 
+  
     // perform out action
     curl_easy_perform(curl);
 
@@ -99,6 +98,9 @@ FILE *init_file(char *filename) {
     ssize_t read;
 
     fp = fopen(filename, "r");
-    if (fp == NULL) exit(EXIT_FAILURE);
+    if (fp == NULL) {
+        printf("Can't open file");
+        exit(EXIT_FAILURE);
+    }
     return fp;
 }

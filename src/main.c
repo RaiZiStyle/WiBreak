@@ -13,8 +13,11 @@
 int main(int argc, char const *argv[]) {
     char *url = NULL;
     char *filename = NULL;
-    int option = 0;
-    
+    FILE *fp = NULL;
+    int option = 0, return_code = 0;
+    char line[256] = {0} ;
+    char *json_payload = NULL;
+
     while ((option = getopt(argc, argv, "hu:f:")) != -1) {
         switch (option) {
             case 'u':
@@ -37,10 +40,24 @@ int main(int argc, char const *argv[]) {
                 exit(EXIT_FAILURE);
         }
     }
-    
-    if (!url  || !filename){
-        print_usage();  
+
+    if (!url || !filename) {
+        print_usage();
         exit(EXIT_FAILURE);
+    }
+    fp = init_file(filename);
+
+
+    while (fgets(line, sizeof(line), fp)) {
+        /* note that fgets don't strip the terminating \n, checking its
+           presence would allow to handle lines longer that sizeof(line) */
+        printf("%s\n", line);
+        json_payload = init_payload(line); 
+        return_code = make_query(json_payload);
+        if (return_code == 200){
+            printf("Password is : %s\n", line);
+        }
+        
     }
 
     return 0;
