@@ -3,62 +3,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>  // Getopt
+
 
 // Local lib
 #include "../header/cJSON.h"
 #include "../header/function.h"
+#include "../header/argp.h"
 
 // TODO: https://curl.se/libcurl/c/example.html
-int main(int argc, char const *argv[]) {
-    char *url = NULL;
-    char *filename = NULL;
-    FILE *fp = NULL;
-    int option = 0, return_code = 0;
-    char line[256] = {0} ;
-    char *json_payload = NULL;
+#include <argp.h>
+#include <stdbool.h>
 
-    while ((option = getopt(argc, argv, "hu:f:")) != -1) {
-        switch (option) {
-            case 'u':
-                url = malloc(sizeof(int) * strlen(optarg));
-                strcpy(url, optarg);
-                printf("Url : %s\n", url);
-                break;
-            case 'f':
-                filename = malloc(sizeof(int) * strlen(optarg));
-                strcpy(filename, optarg);
-                printf("filename : %s\n", filename);
-                // perimeter = 0;
-                break;
-            case 'h':
-                // breadth = atoi(optarg);
-                print_usage();
-                break;
-            default:
-                print_usage();
-                exit(EXIT_FAILURE);
-        }
+
+
+#include <argp.h>
+#include <stdbool.h>
+#include <string.h>
+
+const char *argp_program_version = "WiBreak 0.0.1";
+const char *argp_program_bug_address = "arthur.guyotpremel@gmail.com";
+static char doc[] = "Program used to brute force URL.";
+static char args_doc[] = "[FILENAME] [-u URL] [-w WORDLIST]";
+static struct argp_option options[] = {
+    {"url", 'u', 0, 0, "Compare lines instead of characters."},
+    {"wordlist", 'w', 0, 0, "Compare words instead of characters."},
+    {0}};
+
+struct arguments {
+    enum { CHARACTER_MODE, WORD_MODE, LINE_MODE } mode;
+    bool isCaseInsensitive;
+};
+
+static error_t parse_opt(int key, char *arg, struct argp_state *state) {
+    struct arguments *arguments = state->input;
+    switch (key) {
+        case 'l':
+            arguments->mode = LINE_MODE;
+            break;
+        case 'w':
+            arguments->mode = WORD_MODE;
+            break;
+        case 'i':
+            arguments->isCaseInsensitive = true;
+            break;
+        case ARGP_KEY_ARG:
+            return 0;
+        default:
+            return ARGP_ERR_UNKNOWN;
     }
-
-    if (!url || !filename) {
-        print_usage();
-        exit(EXIT_FAILURE);
-    }
-    fp = init_file(filename);
-
-
-    while (fgets(line, sizeof(line), fp)) {
-        /* note that fgets don't strip the terminating \n, checking its
-           presence would allow to handle lines longer that sizeof(line) */
-        printf("%s\n", line);
-        json_payload = init_payload(line); 
-        return_code = make_query(json_payload, url);
-        if (return_code == 200){
-            printf("Password is : %s\n", line);
-        }
-        
-    }
-
     return 0;
+}
+
+static struct argp argp = {options, parse_opt, args_doc, doc, 0, 0, 0};
+
+int main(int argc, char *argv[])
+{
+    struct arguments arguments;
+
+    arguments.mode = CHARACTER_MODE;
+    arguments.isCaseInsensitive = false;
+
+    argp_parse(&argp, argc, argv, 0, 0, &arguments);
+    // ...
 }
