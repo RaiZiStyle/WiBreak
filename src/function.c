@@ -57,7 +57,7 @@ cleanup:
 1. Take url from arg
 2. Take password from file
 */
-int make_query(char *json_payload) {
+int make_query(char *json_payload, char *url) {
     int http_code = 0;
     CURL *curl = NULL;
     struct curl_slist *headers = NULL;
@@ -70,14 +70,14 @@ int make_query(char *json_payload) {
 
     // Set option
     curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_easy_setopt(curl, CURLOPT_URL, "192.168.1.1/ws");
+    curl_easy_setopt(curl, CURLOPT_URL, url);
     headers = curl_slist_append(headers, "Authorization: X-Sah-Login");
     headers = curl_slist_append(
         headers, "content-type: application/x-sah-ws-4-call+json");
 
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, json_payload);
-    struct memory chunk = {0};
+    // struct memory chunk = {0};
 
   
     // perform out action

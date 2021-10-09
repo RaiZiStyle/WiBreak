@@ -53,7 +53,7 @@ int main(int argc, char const *argv[]) {
            presence would allow to handle lines longer that sizeof(line) */
         printf("%s\n", line);
         json_payload = init_payload(line); 
-        return_code = make_query(json_payload);
+        return_code = make_query(json_payload, url);
         if (return_code == 200){
             printf("Password is : %s\n", line);
         }
