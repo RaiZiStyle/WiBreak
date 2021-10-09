@@ -2,3 +2,5 @@ Obj/
 gist/
 forensic/
 working_query.rest
+*.exe
+*.txt
