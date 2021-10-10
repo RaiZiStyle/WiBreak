@@ -10,7 +10,7 @@ struct arguments {
     // enum { CHARACTER_MODE, WORD_MODE, LINE_MODE } mode;
     char *wordlist;
     char *url_to_query;
-    bool isCaseInsensitive;
+    // bool isCaseInsensitive;
 };
 
 

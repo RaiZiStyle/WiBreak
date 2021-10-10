@@ -23,6 +23,8 @@ int main(int argc, char *argv[])
 
     // arguments.mode = CHARACTER_MODE;
     // arguments.isCaseInsensitive = false;
+    arguments.wordlist = "";
+    arguments.url_to_query = "";
 
     argp_parse(&argp, argc, argv, 0, 0, &arguments);
     printf("Wordlist : %s, Url : %s\n", arguments.wordlist, arguments.url_to_query);

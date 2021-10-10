@@ -9,8 +9,8 @@ const char *argp_program_bug_address = "arthur.guyotpremel@gmail.com";
 static char doc[] = "Program used to brute force URL.";
 static char args_doc[] = "[FILENAME] [-u URL] [-w WORDLIST]";
 static struct argp_option options[] = {
-    {"url", 'u', 0, 0, "Compare lines instead of characters."},
-    {"wordlist", 'w', 0, 0, "Compare words instead of characters."},
+    {"url", 'u', "URL_TO_QUERY", 0, "Compare lines instead of characters."},
+    {"wordlist", 'w', "WORDLIST", 0, "Compare words instead of characters."},
     {0}};
 
 
@@ -20,6 +20,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     switch (key) {
         case 'u':
             arguments->url_to_query = arg;
+            // printf("arg : %s\n", arg);
             break;
         case 'w':
             arguments->wordlist = arg;
@@ -32,4 +33,4 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     return 0;
 }
 
-struct argp argp = {options, parse_opt, args_doc, doc, 0, 0, 0};
+struct argp argp = {options, parse_opt, args_doc, doc};
