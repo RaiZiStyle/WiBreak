@@ -14,7 +14,7 @@ static struct argp_option options[] = {
     {0}};
 
 
-
+// TODO: Need to handle when no argument are given.
 static error_t parse_opt(int key, char *arg, struct argp_state *state) {
     struct arguments *arguments = state->input;
     switch (key) {
@@ -26,6 +26,10 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
             arguments->wordlist = arg;
             break;
         case ARGP_KEY_ARG:
+            printf("state->arg_num : %d\n", state->arg_num);
+            if (state->arg_num < 2 ){
+                argp_usage(state);
+            }
             return 0;
         default:
             return ARGP_ERR_UNKNOWN;
