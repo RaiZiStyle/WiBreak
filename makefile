@@ -22,7 +22,7 @@ clean:
 	rm -rf Obj/*.o *.o $(EXEC) 
 
 run: all
-	./$(EXEC)
+	./$(EXEC) -u to_query.com -w test.txt
 	
 print: # OBJ : "Obj/game_interface.o Obj/List.o Obj/game.o Obj/main.o"
 	@echo 'OBJ : "$(OBJ)"' 
