@@ -1,7 +1,6 @@
 // Local include
 #include "../header/function.h"
 
-void print_usage() { printf("Usage : ./Wibreak -u url -f filename\n"); }
 
 /**
  * Create the Json payload for query
@@ -53,10 +52,7 @@ cleanup:
 }
 
 /* ---------------------------------------------------------------- */
-/* TODO:
-1. Take url from arg
-2. Take password from file
-*/
+
 int make_query(char *json_payload, char *url) {
     int http_code = 0;
     CURL *curl = NULL;
@@ -101,6 +97,8 @@ FILE *init_file(char *filename) {
     if (fp == NULL) {
         printf("Can't open file");
         exit(EXIT_FAILURE);
+    }else{
+        printf("Open file : %s\n", filename);
     }
     return fp;
 }

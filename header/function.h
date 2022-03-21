@@ -14,9 +14,8 @@
 
 
 
+FILE *init_file(char *filename);
 char *init_payload(char *password);
 int make_query(char *json_payload, char *url);
-FILE *init_file(char *filename);
-void print_usage();
 
 #endif
